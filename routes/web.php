@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [ProductController::class, 'returnProducts'])->name('home');
+
+Route::get('/add-product-qty', [ProductController::class, 'addProductQuantity']);
+
+Route::get('/scanner', function () {
+    return response()->view('utility.scanner', [
+        'title' => 'Scan Product',
+    ]);
 });
+
+Route::get('/product-detail/{id}', [ProductController::class, 'productDetail']);
+
+Route::post('/update-product', [ProductController::class, 'updateProduct']);
+// Route::post('/update-or-create-product', [ProductController::class, 'updateOrCreateProduct']);
+
+Route::get('/registry-product', [ProductController::class, 'registryProduct']);
+Route::post('/registry-product', [ProductController::class, 'registerProduct']);
+
+Route::post('/delete-product', [ProductController::class, 'deleteProduct']);
+
+Route::post('/search-product', [ProductController::class, 'searchProduct']);
