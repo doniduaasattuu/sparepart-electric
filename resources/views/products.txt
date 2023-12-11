@@ -23,8 +23,22 @@
     <!-- BUTTON DELETE -->
 
 
+button_quantity
 
+<script>
+        let button_quantitys = document.getElementsByClassName("button_quantity");
 
+        for (let i = 0; i < button_quantitys.length; i++) {
+
+            console.log(button_quantitys[i]);
+            button_quantitys[i].onclick = () => {
+
+                button_quantitys[i].addEventListener("click", function(event) {
+                    event.preventDefault()
+                });
+            }
+        }
+    </script>
 
 
 

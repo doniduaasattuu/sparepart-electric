@@ -58,7 +58,24 @@
                 <!-- QTY -->
                 <div class="mb-3">
                     <label for="qty" class="form-label fw-bold">Qty</label>
-                    <input type="number" class="form-control" name="qty" id="qty" value="{{ $product->qty }}">
+                    <div class="row">
+                        <div class="col">
+                            <input type="number" class="form-control" name="qty" id="qty" value="{{ $product->qty }}">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" name="quantity_change" id="quantity_change" placeholder="Quantity Change">
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn w-100 btn-warning button_quantity">
+                                Minus
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn w-100 btn-success button_quantity">
+                                Plus
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- BUTTON UPDATE -->
@@ -76,6 +93,28 @@
             </form>
         </div>
     </div>
+
+    <script>
+        let qty = document.getElementById('qty');
+        let button_quantitys = document.getElementsByClassName("button_quantity");
+        let quantity_change = document.getElementById("quantity_change");
+        let minus = button_quantitys[0];
+        let plus = button_quantitys[1];
+
+
+        plus.onclick = () => {
+            // console.info(quantity_change.value)
+            if (!isNaN(quantity_change.value)) {
+                Number(qty.value) += Number(quantity_change.value);
+            }
+        }
+
+        minus.onclick = () => {
+            if (quantity_change.value != null) {
+                qty.value -= quantity_change.value;
+            }
+        }
+    </script>
 </body>
 
 </html>
