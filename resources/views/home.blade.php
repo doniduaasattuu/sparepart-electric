@@ -58,13 +58,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <tr>
-                        <th>1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr> -->
-
                     @php
                     $number = 1
                     @endphp
@@ -157,7 +150,7 @@
                 resetFilter(product_names, table_rows);
 
                 for (let i = 0; i < product_names.length; i++) {
-                    if (!product_names[i].match(filter_product.value)) {
+                    if (!product_names[i].match(filter_product.value.toUpperCase())) {
                         table_rows[i].classList.add("d-none");
                     }
                 }

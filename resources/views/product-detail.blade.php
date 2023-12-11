@@ -102,7 +102,7 @@
         let plus = button_quantitys[1];
 
         function quantityChange() {
-            alert("Input valid number!");
+            alert("Enter a valid number!");
             quantity_change.focus();
         }
 
