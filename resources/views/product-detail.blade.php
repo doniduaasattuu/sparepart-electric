@@ -60,10 +60,10 @@
                     <label for="qty" class="form-label fw-bold">Qty</label>
                     <div class="row">
                         <div class="col">
-                            <input type="number" class="form-control" name="qty" id="qty" value="{{ $product->qty }}">
+                            <input min="0" type="number" class="form-control" name="qty" id="qty" value="{{ $product->qty }}">
                         </div>
                         <div class="col">
-                            <input type="number" class="form-control" name="quantity_change" id="quantity_change" placeholder="Quantity Change">
+                            <input min="1" type="number" class="form-control" name="quantity_change" id="quantity_change" placeholder="Quantity Change">
                         </div>
                         <div class="col">
                             <button type="button" class="btn w-100 btn-warning button_quantity">
@@ -101,17 +101,29 @@
         let minus = button_quantitys[0];
         let plus = button_quantitys[1];
 
+        function quantityChange() {
+            alert("Input valid number!");
+            quantity_change.focus();
+        }
 
         plus.onclick = () => {
-            // console.info(quantity_change.value)
-            if (!isNaN(quantity_change.value)) {
-                Number(qty.value) += Number(quantity_change.value);
+            if (!isNaN(quantity_change.value) && quantity_change.value >= 1) {
+                qty.value = Number(qty.value) + Number(quantity_change.value);
+            } else {
+                quantityChange();
             }
         }
 
         minus.onclick = () => {
-            if (quantity_change.value != null) {
-                qty.value -= quantity_change.value;
+            if (!isNaN(quantity_change.value) && quantity_change.value >= 1) {
+
+                if ((Number(qty.value) - Number(quantity_change.value)) < 0) {
+                    qty.value = 0;
+                } else {
+                    qty.value = Number(qty.value) - Number(quantity_change.value);
+                }
+            } else {
+                quantityChange();
             }
         }
     </script>
