@@ -41,6 +41,12 @@
                     <p class="mb-0 text-secondary">Total product in store: <b class="text-dark">{{ $total }}</b> items</p>
                     <hr>
                 </div>
+
+                <div class="mb-3">
+                    <label for="filter" class="form-label fw-bold">Filter Product</label>
+                    <input type="text" class="form-control" id="filter_product" name="filter_product" placeholder="Filter By Product Name">
+                </div>
+
                 <thead>
                     <tr>
                         <th scope="col">No</th>
@@ -66,7 +72,7 @@
                     @foreach ($products->toArray() as $product )
 
                     <!-- PRODUCTS -->
-                    <tr>
+                    <tr class="table_row">
                         <td>{{ $number }}</td>
                         @foreach ($product as $key => $value )
                         <td class="text-break">{{ $value }}</td>
@@ -114,20 +120,20 @@
 
     <script type="text/javascript">
         let button_deletes = document.getElementsByClassName('button_delete');
+        let filter_product = document.getElementById("filter_product");
+        let table_rows = document.getElementsByClassName("table_row")
+        let products = <?php echo json_encode($products) ?>
 
-        // function clicked(form, name) {
-        //     if (confirm('Do you want to delete ' + name + ' ?')) {
-        //         form.submit();
-        //     } else {
-        //         return false;
-        //     }
-        // }
+        let product_names = [];
+
+        for (let i = 0; i < products.length; i++) {
+            product_names.push(products[i].name);
+        }
 
         for (let i = 0; i < button_deletes.length; i++) {
 
             let name = `${button_deletes[i].getAttribute("product_name")}`;
             let id = `${button_deletes[i].getAttribute("product_id")}`;
-
             let form = document.getElementById("delete_form_" + `${id}`)
 
             button_deletes[i].onclick = () => {
@@ -136,6 +142,27 @@
                 } else {
                     return false;
                 }
+            }
+        }
+
+        function resetFilter(product_names, table_rows) {
+
+            for (let i = 0; i < product_names.length; i++) {
+                table_rows[i].classList.remove("d-none");
+            }
+        }
+
+        filter_product.oninput = () => {
+            if (filter_product.value.length > 0) {
+                resetFilter(product_names, table_rows);
+
+                for (let i = 0; i < product_names.length; i++) {
+                    if (!product_names[i].match(filter_product.value)) {
+                        table_rows[i].classList.add("d-none");
+                    }
+                }
+            } else {
+                resetFilter(product_names, table_rows);
             }
         }
     </script>
