@@ -38,7 +38,7 @@
                 <div class="mb-1">
                     <h4 class="mb-2">Data Product</h4>
                     <p class="mb-0 text-secondary">Toko Pelopor Sistem Belanja Online</p>
-                    <p class="mb-0 text-secondary">Total product in store: <b class="text-dark">{{ $total }}</b> items</p>
+                    <p class="mb-0 text-secondary">Total product in warehouse: <b class="text-dark">{{ $total }}</b> items</p>
                     <hr>
                 </div>
 
