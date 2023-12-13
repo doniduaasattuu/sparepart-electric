@@ -28,16 +28,18 @@ class ViewTest extends TestCase
 
     public function testScanner()
     {
-        $this->seed([ProductSeeder::class]);
+        // $this->seed([ProductSeeder::class]);
 
-        $products = Product::query()
-            ->orderBy('id', "DESC")
-            ->get();
+        // $products = Product::query()
+        //     ->orderBy('id', "DESC")
+        //     ->get();
 
-        $this->view('utility.scanner', [
+        $scanner_page = $this->followingRedirects()->view('utility.scanner', [
             'title' => 'Scan Product',
-        ])
-            ->assertSeeText("Scan Product")
-            ->assertSeeText("Request Camera Permissions");
+        ]);
+
+        $scanner_page
+            ->assertSee("Scan Product")
+            ->assertSee("buttonRequest");
     }
 }

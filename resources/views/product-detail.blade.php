@@ -55,6 +55,12 @@
                     <input type="text" class="form-control" name="name" id="name" value="{{ $product->name }}">
                 </div>
 
+                <!-- PRICE -->
+                <div class="mb-3">
+                    <label for="price" class="form-label fw-bold">@Price</label>
+                    <input type="text" class="form-control" name="price" id="price" value="{{ $product->price }}">
+                </div>
+
                 <!-- QTY -->
                 <div class="mb-3">
                     <label for="qty" class="form-label fw-bold">Qty</label>

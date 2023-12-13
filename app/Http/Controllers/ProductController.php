@@ -55,6 +55,7 @@ class ProductController extends Controller
     {
         $id = $request->input('id');
         $name = $request->input('name');
+        $price = $request->input('price');
         $qty = $request->input('qty');
 
         $product = Product::query()->find($id);
@@ -65,6 +66,7 @@ class ProductController extends Controller
             try {
                 $product->id = $id;
                 $product->name = $name;
+                $product->price = $price;
                 $product->qty = $qty;
 
                 $result = $product->update();
@@ -136,11 +138,12 @@ class ProductController extends Controller
     {
         $id = $request->input('id');
         $name = $request->input('name');
+        $price = $request->input('price');
         $qty = $request->input('qty');
 
         $product = Product::query()->find($id);
 
-        if (!empty($id) && !empty($name) && !empty($qty)) {
+        if (!empty($id) && !empty($name) && !empty($price) && !empty($qty)) {
 
             if (!is_null($product)) {
                 return redirect()->back()->with('message', 'Product already exist!');
@@ -150,6 +153,7 @@ class ProductController extends Controller
                     Product::create([
                         'id' => $id,
                         'name' => $name,
+                        'price' => $price,
                         'qty' => $qty,
                     ]);
                 } catch (QueryException $error) {

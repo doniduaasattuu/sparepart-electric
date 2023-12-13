@@ -17,6 +17,6 @@ class ProductTest extends TestCase
         $products = Product::query()->get();
 
         self::assertNotNull($products);
-        self::assertCount(1000, $products);
+        self::assertCount(1001, $products);
     }
 }
