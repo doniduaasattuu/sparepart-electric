@@ -6,9 +6,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="mt-4 mt-lg-0 collapse navbar-collapse" id="navbarSupportedContent">
-            <form action="/search-product" method="post" class="mb-3 mb-lg-0 d-flex" role="search">
+            <form action="/search-part" method="post" class="mb-3 mb-lg-0 d-flex" role="search">
                 @csrf
-                <input id="id" name="id" class="search_input form-control me-2" type="search" placeholder="Search Product by ID" aria-label="Search">
+                <input id="id" name="id" class="search_input form-control me-2" type="search" placeholder="Material Number" aria-label="Search">
                 <button class="btn btn-outline-primary" type="submit">Search</button>
             </form>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ProductController::class, 'returnProducts'])->name('home');
+Route::get('/', [PartController::class, 'showAllParts'])->name('home');
 
-Route::get('/add-product-qty', [ProductController::class, 'addProductQuantity']);
+Route::get('/add-product-qty', [PartController::class, 'addProductQuantity']);
 
 Route::get('/scanner', function () {
     return response()->view('utility.scanner', [
@@ -24,14 +24,14 @@ Route::get('/scanner', function () {
     ]);
 });
 
-Route::get('/product-detail/{id}', [ProductController::class, 'productDetail']);
+Route::get('/product-detail/{id}', [PartController::class, 'productDetail']);
 
-Route::post('/update-product', [ProductController::class, 'updateProduct']);
-// Route::post('/update-or-create-product', [ProductController::class, 'updateOrCreateProduct']);
+Route::post('/update-product', [PartController::class, 'updateProduct']);
+// Route::post('/update-or-create-product', [PartController::class, 'updateOrCreateProduct']);
 
-Route::get('/registry-product', [ProductController::class, 'registryProduct']);
-Route::post('/registry-product', [ProductController::class, 'registerProduct']);
+Route::get('/registry-product', [PartController::class, 'registryProduct']);
+Route::post('/registry-product', [PartController::class, 'registerProduct']);
 
-Route::post('/delete-product', [ProductController::class, 'deleteProduct']);
+Route::post('/delete-product', [PartController::class, 'deleteProduct']);
 
-Route::post('/search-product', [ProductController::class, 'searchProduct']);
+Route::post('/search-product', [PartController::class, 'searchProduct']);

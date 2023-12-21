@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class MaterialType extends Model
 {
-    protected $table = 'products';
+    protected $table = 'material_types';
     protected $keyType = 'string';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'type';
     public $incrementing = false;
     public $timestamps = false;
 
     protected $fillable = [
-        'id',
-        'name',
-        'price',
-        'qty',
+        'type',
+        'type_description',
     ];
 }
