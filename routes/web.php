@@ -24,14 +24,14 @@ Route::get('/scanner', function () {
     ]);
 });
 
-Route::get('/product-detail/{id}', [PartController::class, 'productDetail']);
+Route::get('/part-detail/{id}', [PartController::class, 'partDetail']);
 
-Route::post('/update-product', [PartController::class, 'updateProduct']);
+Route::post('/update-part', [PartController::class, 'updatePart']);
 // Route::post('/update-or-create-product', [PartController::class, 'updateOrCreateProduct']);
 
-Route::get('/registry-product', [PartController::class, 'registryProduct']);
-Route::post('/registry-product', [PartController::class, 'registerProduct']);
+Route::get('/registry-part', [PartController::class, 'registryPart']);
+Route::post('/registry-part', [PartController::class, 'registerPart']);
 
-Route::post('/delete-product', [PartController::class, 'deleteProduct']);
+Route::post('/delete-part', [PartController::class, 'deletePart']);
 
 Route::post('/search-product', [PartController::class, 'searchProduct']);

@@ -40,7 +40,7 @@
                         Database
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="border-bottom border-top dropdown-item" href="/registry-product">Registry Product</a></li>
+                        <li><a class="border-bottom border-top dropdown-item" href="/registry-part">Registry Part</a></li>
                         <!-- <li><a class="border-bottom dropdown-item" href="/min-product-qty">Min Product</a></li> -->
                     </ul>
                 </li>

@@ -17,6 +17,10 @@ class PartSeeder extends Seeder
     {
         DB::table('parts')->delete();
 
+        $this->call([
+            MaterialTypeSeeder::class
+        ]);
+
         Part::create([
             [
                 'id' => '10034944',

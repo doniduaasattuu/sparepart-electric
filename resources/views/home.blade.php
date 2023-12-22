@@ -42,7 +42,7 @@
 
                 <div class="mb-3">
                     <label for="filter" class="form-label fw-bold">Filter Sparepart</label>
-                    <input type="text" class="form-control" id="filter_parts" name="filter_parts" placeholder="Filter By Material Description">
+                    <input type="text" class="form-control" id="filter_parts" name="filter_parts" placeholder="Filter By Number or Description">
                 </div>
 
                 <thead>
@@ -86,7 +86,7 @@
 
                         <!-- BUTTON DELETE -->
                         <td>
-                            <form id="delete_form_{{ $part['id'] }}" action="/delete-product" method="POST">
+                            <form id="delete_form_{{ $part['id'] }}" action="/delete-part" method="POST">
                                 @csrf
                                 <input type="hidden" id="id" name="id" value="{{ $part['id'] }}">
                                 <button type="button" material_id="{{ $part['id'] }}" material_description="{{ $part['material_description'] }}" class="btn btn-danger button_delete">
@@ -120,17 +120,19 @@
         // console.log(parts);
 
         let part_names = [];
-
         for (let i = 0; i < parts.length; i++) {
             part_names.push(parts[i].material_description);
         }
 
-        console.table(part_names);
+        let part_numbers = [];
+        for (let i = 0; i < parts.length; i++) {
+            part_numbers.push(parts[i].id);
+        }
 
         for (let i = 0; i < button_deletes.length; i++) {
 
-            let name = `${button_deletes[i].getAttribute("part_name")}`;
-            let id = `${button_deletes[i].getAttribute("part_id")}`;
+            let name = `${button_deletes[i].getAttribute("material_description")}`;
+            let id = `${button_deletes[i].getAttribute("material_id")}`;
             let form = document.getElementById("delete_form_" + `${id}`)
 
             button_deletes[i].onclick = () => {
@@ -151,11 +153,21 @@
 
         filter_parts.oninput = () => {
             if (filter_parts.value.length > 0) {
-                resetFilter(part_names, table_rows);
+                if (!isNaN(filter_parts.value)) {
+                    resetFilter(part_names, table_rows);
 
-                for (let i = 0; i < part_names.length; i++) {
-                    if (!part_names[i].match(filter_parts.value.toUpperCase())) {
-                        table_rows[i].classList.add("d-none");
+                    for (let i = 0; i < part_numbers.length; i++) {
+                        if (!part_numbers[i].match(filter_parts.value.toUpperCase())) {
+                            table_rows[i].classList.add("d-none");
+                        }
+                    }
+                } else {
+                    resetFilter(part_names, table_rows);
+
+                    for (let i = 0; i < part_names.length; i++) {
+                        if (!part_names[i].match(filter_parts.value.toUpperCase())) {
+                            table_rows[i].classList.add("d-none");
+                        }
                     }
                 }
             } else {

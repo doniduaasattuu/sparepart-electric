@@ -12,7 +12,7 @@
 
         <div class="card shadow p-4 my-4">
 
-            <form action="/registry-product" method="post">
+            <form action="/registry-part" method="post">
                 @csrf
                 <div class="mb-2">
                     <h4>Registry Product</h4>

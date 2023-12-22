@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\MaterialType;
 use App\Models\Part;
 use App\Models\Product;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+use function Laravel\Prompts\select;
 
 class PartController extends Controller
 {
@@ -25,60 +29,77 @@ class PartController extends Controller
         ]);
     }
 
-    // // ========================================
-    // // =========== PRODUCT DETAIL =============
-    // // ========================================
-    // public function productDetail(Request $request, string $id)
-    // {
-    //     $product = Product::query()->find($id);
+    // ========================================
+    // =========== PRODUCT DETAIL =============
+    // ========================================
+    public function partDetail(Request $request, string $id)
+    {
+        $part = Part::query()->find($id);
 
-    //     // return response()->json($product->toArray());
+        $columns = DB::getSchemaBuilder()->getColumnListing('parts');
 
-    //     if (!is_null($product)) {
-    //         return response()->view('/product-detail', [
-    //             'title' => 'Update Product',
-    //             'product' => $product
-    //         ]);
-    //     } else {
-    //         return redirect()->route('home')->with('message', 'Product ' . '"' . $id . '"' . ' not found!');
-    //     }
-    // }
+        $material_types = MaterialType::get();
 
-    // // ========================================
-    // // =========== PRODUCT DETAIL =============
-    // // ========================================
-    // public function updateProduct(Request $request)
-    // {
-    //     $id = $request->input('id');
-    //     $name = $request->input('name');
-    //     $price = $request->input('price');
-    //     $qty = $request->input('qty');
+        $selects = [];
+        $types = [];
 
-    //     $product = Product::query()->find($id);
-    //     // return response()->json($product);
+        foreach ($material_types as $material) {
+            array_push($selects, $material->type . ' - ' . $material->type_description);
+            array_push($types, $material->type);
+        }
+        // return response()->json($types);
 
-    //     if (!is_null($product)) {
+        if (!is_null($part)) {
+            return response()->view('part-detail', [
+                'title' => 'Update Material',
+                'part' => $part,
+                'columns' => $columns,
+                'selects' => $selects,
+                'types' => $types,
+            ]);
+        } else {
+            return redirect()->route('home')->with('message', 'Material ' . '"' . $id . '"' . ' not found!');
+        }
+    }
 
-    //         try {
-    //             $product->id = $id;
-    //             $product->name = $name;
-    //             $product->price = $price;
-    //             $product->qty = $qty;
+    // ========================================
+    // ============= UPDATE PART ==============
+    // ========================================
+    public function updatePart(Request $request)
+    {
 
-    //             $result = $product->update();
-    //         } catch (QueryException $error) {
-    //             return redirect()->action([ProductController::class, 'productDetail'], ['id' => $id])->with('message', $error->getMessage());
-    //         }
+        $data = $request->except(['_token']);
+        $id = $data['id'];
+        $part = Part::query()->find($id);
 
-    //         if ($result) {
-    //             return redirect()->action([ProductController::class, 'productDetail'], ['id' => $id])->with('message', 'Successfuly Updated');
-    //         } else {
-    //             return redirect()->action([ProductController::class, 'productDetail'], ['id' => $id])->with('message', 'Error Occured!');
-    //         }
-    //     } else {
-    //         return redirect()->action([ProductController::class, 'productDetail'], ['id' => $id])->with('message', 'Product Not Found!');
-    //     }
-    // }
+        if (!is_null($part)) {
+
+            try {
+
+                foreach ($data as $key => $value) {
+                    if ($key == 'id') {
+                        continue;
+                    } else {
+                        $part->$key = $value;
+                    }
+                }
+
+                // return response()->json($updated);
+                $result = $part->update();
+            } catch (QueryException $error) {
+                return redirect()->action([PartController::class, 'partDetail'], ['id' => $id])->with('message', $error->getMessage());
+            }
+
+            if ($result) {
+                return redirect()->action([PartController::class, 'partDetail'], ['id' => $id])->with('message', 'Successfuly Updated');
+            } else {
+                return redirect()->action([PartController::class, 'partDetail'], ['id' => $id])->with('message', 'Error Occured!');
+            }
+        } else {
+            return redirect()->action([PartController::class, 'partDetail'], ['id' => $id])->with('message', 'Material not found!');
+        }
+    }
+
     // // public function updateOrCreateProduct(Request $request)
     // // {
     // //     $id = $request->input('id');
@@ -117,15 +138,15 @@ class PartController extends Controller
     // //     }
     // // }
 
-    // // ========================================
-    // // ========== REGISTRY PRODUCT ============
-    // // ========================================
-    // public function registryProduct()
-    // {
-    //     return response()->view('registry-product', [
-    //         'title' => 'Registry Product',
-    //     ]);
-    // }
+    // ========================================
+    // ========== REGISTRY PRODUCT ============
+    // ========================================
+    public function registryPart()
+    {
+        return response()->view('registry-part', [
+            'title' => 'Registry Part',
+        ]);
+    }
 
     // // ========================================
     // // ========== REGISTER PRODUCT ============
@@ -163,29 +184,32 @@ class PartController extends Controller
     //     }
     // }
 
-    // // ========================================
-    // // =========== DELETE PRODUCT =============
-    // // ========================================
-    // public function deleteProduct(Request $request)
-    // {
-    //     $id = $request->input('id');
+    // ========================================
+    // =========== DELETE PART =============
+    // ========================================
+    public function deletePart(Request $request)
+    {
+        $id = $request->input('id');
 
-    //     $product = Product::query()->find($id);
+        $part = Part::query()->find($id);
 
-    //     if (!is_null($product)) {
-    //         $result = $product->delete();
-    //         if ($result) {
-    //             return redirect()->back()->with('message', '"' . $product->name . '"' . ' Successfully Deleted');
-    //             // return response()->json(['message' => 'Successfully Deleted']);
-    //         } else {
-    //             return redirect()->back()->with('message', 'Error Occured!');
-    //             // return response()->json(['message' => 'Error Occured!']);
-    //         }
-    //     } else {
-    //         return redirect()->back()->with('message', 'Product ' . $id . ' Not Found!');
-    //         // return response()->json(['message' => 'Product Not Found!']);
-    //     }
-    // }
+        if (!is_null($part)) {
+
+            try {
+                $result = $part->delete();
+            } catch (QueryException $error) {
+                return redirect()->back()->with('message', $error->getMessage());
+            }
+
+            if ($result) {
+                return redirect()->back()->with('message', '"' . $part->material_description . '"' . ' Successfully Deleted');
+            } else {
+                return redirect()->back()->with('message', 'Error Occured!');
+            }
+        } else {
+            return redirect()->back()->with('message', 'Product ' . $id . ' Not Found!');
+        }
+    }
 
     // // ========================================
     // // =========== SEARCH PRODUCT =============
