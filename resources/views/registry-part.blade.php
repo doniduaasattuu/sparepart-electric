@@ -14,34 +14,7 @@
 
             <form action="/registry-part" method="post">
                 @csrf
-                <div class="mb-2">
-                    <h4>Registry Product</h4>
-                    <p>Toko Pelopor Sistem Belanja Online</p>
-                </div>
 
-                <!-- ID -->
-                <div class="mb-3">
-                    <label for="id" class="form-label fw-bold">Id *</label>
-                    <input type="number" class="form-control" name="id" id="id">
-                </div>
-
-                <!-- NAME -->
-                <div class=" mb-3">
-                    <label for="name" class="form-label fw-bold">Name *</label>
-                    <input type="text" class="form-control" name="name" id="name">
-                </div>
-
-                <!-- PRICE -->
-                <div class=" mb-3">
-                    <label for="price" class="form-label fw-bold">@Price *</label>
-                    <input type="text" class="form-control" name="price" id="price">
-                </div>
-
-                <!-- QTY -->
-                <div class=" mb-3">
-                    <label for="qty" class="form-label fw-bold">Qty *</label>
-                    <input type="number" class="form-control" name="qty" id="qty">
-                </div>
 
                 <!-- BUTTON UPDATE -->
                 <div>

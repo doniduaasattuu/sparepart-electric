@@ -34,4 +34,6 @@ Route::post('/registry-part', [PartController::class, 'registerPart']);
 
 Route::post('/delete-part', [PartController::class, 'deletePart']);
 
-Route::post('/search-product', [PartController::class, 'searchProduct']);
+Route::post('/search-part', [PartController::class, 'searchPart']);
+
+// Route::get('/images/{part_id}', [PartController::class, 'getImage']);

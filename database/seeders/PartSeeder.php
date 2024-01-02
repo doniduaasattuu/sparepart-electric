@@ -133,6 +133,13 @@ class PartSeeder extends Seeder
                 'material_type' => 'V1',
                 'qty' => '30',
                 'location' => 'LEMARI 1 SLOT 4',
+            ],
+            [
+                'id' => '10043397',
+                'material_description' => 'LAMP PILOT,RED,AMP/VOLT METER,LD16-22VA',
+                'material_type' => 'ND',
+                'qty' => '1',
+                'location' => 'LEMARI 1 SLOT 5',
             ]
         ]);
     }

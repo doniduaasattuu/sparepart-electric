@@ -41,6 +41,14 @@
                 </div>
 
                 <div class="mb-3">
+                    <a class="text-dark nav-link d-inline-block" aria-current="page" href="/registry-part">
+                        <svg class="me-1 mb-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0" />
+                        </svg>
+                        New Material</a>
+                </div>
+
+                <div class="mb-3">
                     <label for="filter" class="form-label fw-bold">Filter Sparepart</label>
                     <input type="text" class="form-control" id="filter_parts" name="filter_parts" placeholder="Filter By Number or Description">
                 </div>
@@ -53,6 +61,7 @@
                         <th scope="col">Type</th>
                         <th scope="col">Qty</th>
                         <th scope="col">Location</th>
+                        <th scope="col">Image</th>
                         <th scope="col">Edit</th>
                         <th scope="col">Delete</th>
                     </tr>
@@ -70,6 +79,19 @@
                         @foreach ($part as $key => $value )
                         <td class="text-break">{{ $value }}</td>
                         @endforeach
+
+                        <!-- BUTTON IMAGE -->
+                        <td>
+                            <a href="/storage/images/{{ $part['id'] }}.jpg">
+                                <button type="button" class="btn btn-secondary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-file-earmark-image" viewBox="0 0 16 16">
+                                        <path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                                        <path d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1z" />
+                                    </svg>
+                                </button>
+                            </a>
+                        </td>
+                        <!-- BUTTON IMAGE -->
 
                         <!-- BUTTON EDIT -->
                         <td>

@@ -36,7 +36,7 @@
 
         <div class="card shadow p-4 my-4">
 
-            <form action="/update-part" method="post">
+            <form action="/update-part" enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="mb-3">
                     <h4>Material Detail</h4>
@@ -57,10 +57,9 @@
                         <!-- MATERIAL TYPE -->
                         @if ($type == $part->$column)
                         <option selected value="{{ $type }}">{{ $selects[$count] }}</option>
-                        @continue
-                        @endif
-
+                        @else
                         <option value="{{ $type }}">{{ $selects[$count] }}</option>
+                        @endif
 
                         @php
                         $count++
@@ -92,47 +91,14 @@
                 </div>
                 @endif
 
-
-
-                <!-- <p>{{ $column }}</p> -->
                 @endforeach
 
-                <!--<div class="mb-3">
-                        <label for="id" class="form-label fw-bold">Id</label>
-                        <input readonly type="text" class="form-control" name="id" id="id" value="{{ $part->id }}">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="name" class="form-label fw-bold">Name</label>
-                            <input type="text" class="form-control" name="name" id="name" value="{{ $part->name }}">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="price" class="form-label fw-bold">@Price</label>
-                            <input type="text" class="form-control" name="price" id="price" value="{{ $part->price }}">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="qty" class="form-label fw-bold">Qty</label>
-                            <div class="row">
-                                <div class="col">
-                                    <input min="0" type="number" class="form-control" name="qty" id="qty" value="{{ $part->qty }}">
-                                </div>
-                                <div class="col">
-                                    <input min="1" type="number" class="form-control" name="quantity_change" id="quantity_change" placeholder="Quantity Change">
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn w-100 btn-warning button_quantity">
-                                        Minus
-                                    </button>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn w-100 btn-success button_quantity">
-                                        Plus
-                                    </button>
-                                </div>
-                            </div>
-                        </div> -->
+                <!-- IMAGE FILE -->
+                <div class="mb-3">
+                    <label for="image" class="form-label fw-bold">Image</label>
+                    <input type="file" class="form-control" id="image" name="image">
+                </div>
+                <!-- IMAGE FILE -->
 
                 <!-- BUTTON UPDATE -->
                 <div>

@@ -1,17 +1,37 @@
 <!-- NAVBAR -->
+<!-- <nav class="navbar bg-dark border-bottom border-body">
+    <div class="container">
+        <a class="navbar-brand text-white">
+            <svg class="mb-1 me-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z" />
+                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z" />
+            </svg>
+            Sparepart Electric</a>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</nav> -->
+
 <nav class="sticky-top navbar absolute navbar-expand-xl bg-dark text-white zindex-fixed shadow-sm">
     <div class="container">
-        <a class="text-white fw-medium me-xl-5 me-lg-3 navbar-brand" href="/">Toko PSBO</a>
+        <a class="text-white fw-medium me-xl-5 me-lg-3 navbar-brand" href="/">
+            <svg class="mb-1 me-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z" />
+                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z" />
+            </svg>
+            Home</a>
         <button class="navbar-dark navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="mt-4 mt-lg-0 collapse navbar-collapse" id="navbarSupportedContent">
-            <form action="/search-part" method="post" class="mb-3 mb-lg-0 d-flex" role="search">
+            <form action="/search-part" method="post" class="ms-auto mb-3 mb-lg-0 d-flex" role="search">
                 @csrf
-                <input id="id" name="id" class="search_input form-control me-2" type="search" placeholder="Material Number" aria-label="Search">
+                <input id="part" name="part" class="search_input form-control me-2" type="search" placeholder="Material Number" aria-label="Search">
                 <button class="btn btn-outline-primary" type="submit">Search</button>
             </form>
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <!-- <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item me-2 me-md-3">
                     <a class="text-white nav-link" aria-current="page" href="/">
                         <svg class="mb-1 me-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
@@ -31,17 +51,22 @@
                         </svg>
                         Scanner</a>
                 </li>
+                <li class="nav-item me-2 me-md-3">
+                    <a class="text-white nav-link" aria-current="page" href="/registry-part">
+                        <svg class="me-1 mb-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0" />
+                        </svg>
+                        Registry Part</a>
+                </li>
                 <li class="nav-item dropdown me-2 me-md-3">
                     <a class="text-white nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg class="mb-1 me-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-check" viewBox="0 0 16 16">
-                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
-                            <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
+                        <svg class="mb-1 me-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0" />
                         </svg>
                         Database
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="border-bottom border-top dropdown-item" href="/registry-part">Registry Part</a></li>
-                        <!-- <li><a class="border-bottom dropdown-item" href="/min-product-qty">Min Product</a></li> -->
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -58,27 +83,9 @@
                         <li><a class="border-bottom text-light bg-danger dropdown-item" href="#">Logout</a></li>
                     </ul>
                 </li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 </nav>
 
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script> -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-    // DINAMIC SEARCH PLACEHOLDER
-    // setInterval(() => {
-    //     let placeholder = search_data.getAttribute("placeholder");
-
-    //     if (placeholder == "e.g. EMO000426") {
-    //         search_data.setAttribute("placeholder", "e.g. Fajar-MotorList1804");
-    //     } else if (placeholder == "e.g. Fajar-MotorList1804") {
-    //         search_data.setAttribute("placeholder", "e.g. MGM000481");
-    //     } else if (placeholder == "e.g. MGM000481") {
-    //         search_data.setAttribute("placeholder", "e.g. 1804");
-    //     } else if (placeholder == "e.g. 1804") {
-    //         search_data.setAttribute("placeholder", "e.g. EMO000426");
-    //     }
-    // }, 1750);
-</script>

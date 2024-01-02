@@ -8,13 +8,30 @@ use App\Models\Part;
 use App\Models\Product;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 use function Laravel\Prompts\select;
 
 class PartController extends Controller
 {
+    // // ========================================
+    // // ============ RETURN IMAGE ==============
+    // // ========================================
+    // public function getImage(Request $request, string $part_id)
+    // {
+    //     // return response()->json($part_id);
+    //     // return response()->file('storage/images/' . $part_id . '.jpg');
+    //     $image = Storage::get('storage/images/' . $part_id . '.jpg');
+
+    //     if (!is_null($image)) {
+    //         return response()->file($image);
+    //     } else {
+    //         return abort(404);
+    //     }
+    // }
 
     // ========================================
     // ========= RETURN ALL PRODUCT ===========
@@ -35,9 +52,7 @@ class PartController extends Controller
     public function partDetail(Request $request, string $id)
     {
         $part = Part::query()->find($id);
-
         $columns = DB::getSchemaBuilder()->getColumnListing('parts');
-
         $material_types = MaterialType::get();
 
         $selects = [];
@@ -67,10 +82,14 @@ class PartController extends Controller
     // ========================================
     public function updatePart(Request $request)
     {
+        $image = $request->file('image');
 
-        $data = $request->except(['_token']);
+        $data = $request->except(['_token', 'image']);
         $id = $data['id'];
         $part = Part::query()->find($id);
+
+        // $image->storePubliclyAs('images', $id . '.' . $image->getClientOriginalExtension(), 'public');
+        $image->storePubliclyAs('images', $id . '.jpg', 'public');
 
         if (!is_null($part)) {
 
@@ -211,19 +230,19 @@ class PartController extends Controller
         }
     }
 
-    // // ========================================
-    // // =========== SEARCH PRODUCT =============
-    // // ========================================
-    // public function searchProduct(Request $request)
-    // {
-    //     $id = $request->input("id");
+    // ========================================
+    // ============= SEARCH PART ==============
+    // ========================================
+    public function searchPart(Request $request)
+    {
+        $id = $request->input("part");
 
-    //     $product = Product::query()->find($id);
+        $part = Part::query()->find($id);
 
-    //     if (!is_null($product)) {
-    //         return redirect()->action([ProductController::class, 'productDetail'], ['id' => $id]);
-    //     } else {
-    //         return redirect()->route('home')->with('message', 'Product ' . '"' . $id . '"' . ' not found!');
-    //     }
-    // }
+        if (!is_null($part)) {
+            return redirect()->action([PartController::class, 'partDetail'], ['id' => $id]);
+        } else {
+            return redirect()->route('home')->with('message', 'Part ' . '"' . $id . '"' . ' not found!');
+        }
+    }
 }

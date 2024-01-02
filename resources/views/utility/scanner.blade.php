@@ -27,7 +27,7 @@
 
             // decodedText => https://www.safesave.info/MIC.php?id=Fajar-MotorList1804
             // let motorList = decodedText.split("=")[1];
-            window.location = `/product-detail/${decodedText}`;
+            window.location = `/part-detail/${decodedText}`;
 
             html5QrcodeScanner.clear();
         }
