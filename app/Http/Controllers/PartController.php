@@ -67,7 +67,7 @@ class PartController extends Controller
         if (!is_null($part)) {
             return response()->view('part-detail', [
                 'title' => 'Update Material',
-                'part' => $part,
+                'part' => $part->toArray(),
                 'columns' => $columns,
                 'selects' => $selects,
                 'types' => $types,
@@ -82,14 +82,14 @@ class PartController extends Controller
     // ========================================
     public function updatePart(Request $request)
     {
-        $image = $request->file('image');
-
         $data = $request->except(['_token', 'image']);
         $id = $data['id'];
         $part = Part::query()->find($id);
 
-        // $image->storePubliclyAs('images', $id . '.' . $image->getClientOriginalExtension(), 'public');
-        $image->storePubliclyAs('images', $id . '.jpg', 'public');
+        $image = $request->file('image');
+        if (!is_null($image)) {
+            $image->storePubliclyAs('images', $id . '.jpg', 'public');
+        }
 
         if (!is_null($part)) {
 
@@ -162,9 +162,30 @@ class PartController extends Controller
     // ========================================
     public function registryPart()
     {
-        return response()->view('registry-part', [
-            'title' => 'Registry Part',
-        ]);
+        $part = [];
+        $columns = DB::getSchemaBuilder()->getColumnListing('parts');
+        $material_types = MaterialType::get();
+
+        $selects = [];
+        $types = [];
+
+        foreach ($material_types as $material) {
+            array_push($selects, $material->type . ' - ' . $material->type_description);
+            array_push($types, $material->type);
+        }
+        // return response()->json($types);
+
+        if (!is_null($part)) {
+            return response()->view('part-detail', [
+                'title' => 'Registry Material',
+                'part' => $part,
+                'columns' => $columns,
+                'selects' => $selects,
+                'types' => $types,
+            ]);
+        } else {
+            return redirect()->route('home')->with('message', 'Error Occured!');
+        }
     }
 
     // // ========================================
