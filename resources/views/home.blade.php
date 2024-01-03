@@ -81,7 +81,7 @@
                         @endforeach
 
                         <!-- BUTTON IMAGE -->
-                        <td>
+                        <td title="Click for image">
                             <a href="/storage/images/{{ $part['id'] }}.jpg">
                                 <button type="button" class="btn btn-secondary">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-file-earmark-image" viewBox="0 0 16 16">
@@ -94,7 +94,7 @@
                         <!-- BUTTON IMAGE -->
 
                         <!-- BUTTON EDIT -->
-                        <td>
+                        <td title="Click for edit">
                             <!-- <form id="edit_form_{{ $part['id'] }}" action="/part-detail/{{ $part['id'] }}" method="GET"> -->
                             <a href="/part-detail/{{ $part['id'] }}">
                                 <button type="submit" material_id="{{ $part['id'] }}" material_description="{{ $part['material_description'] }}" class="btn btn-success button_edit">
@@ -108,7 +108,7 @@
                         <!-- BUTTON EDIT -->
 
                         <!-- BUTTON DELETE -->
-                        <td>
+                        <td title="Click for delete material">
                             <form id="delete_form_{{ $part['id'] }}" action="/delete-part" method="POST">
                                 @csrf
                                 <input type="hidden" id="id" name="id" value="{{ $part['id'] }}">
@@ -175,12 +175,12 @@
         }
 
         filter_parts.oninput = () => {
-            if (filter_parts.value.length > 0) {
-                if (!isNaN(filter_parts.value)) {
+            if (filter_parts.value.trim().length > 0) {
+                if (!isNaN(filter_parts.value.trim())) {
                     resetFilter(part_names, table_rows);
 
                     for (let i = 0; i < part_numbers.length; i++) {
-                        if (!part_numbers[i].match(filter_parts.value.toUpperCase())) {
+                        if (!part_numbers[i].match(filter_parts.value.trim().toUpperCase())) {
                             table_rows[i].classList.add("d-none");
                         }
                     }
@@ -188,7 +188,7 @@
                     resetFilter(part_names, table_rows);
 
                     for (let i = 0; i < part_names.length; i++) {
-                        if (!part_names[i].match(filter_parts.value.toUpperCase())) {
+                        if (!part_names[i].match(filter_parts.value.trim().toUpperCase())) {
                             table_rows[i].classList.add("d-none");
                         }
                     }

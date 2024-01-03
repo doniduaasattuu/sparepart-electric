@@ -26,7 +26,7 @@ Route::get('/scanner', function () {
 
 Route::get('/part-detail/{id}', [PartController::class, 'partDetail']);
 
-Route::post('/update-part', [PartController::class, 'updatePart']);
+Route::post('/upsert-part', [PartController::class, 'upsertPart']);
 // Route::post('/update-or-create-product', [PartController::class, 'updateOrCreateProduct']);
 
 Route::get('/registry-part', [PartController::class, 'registryPart']);
@@ -35,5 +35,6 @@ Route::post('/registry-part', [PartController::class, 'registerPart']);
 Route::post('/delete-part', [PartController::class, 'deletePart']);
 
 Route::post('/search-part', [PartController::class, 'searchPart']);
+Route::get('/id-check/{id}', [PartController::class, 'idCheck']);
 
 // Route::get('/images/{part_id}', [PartController::class, 'getImage']);

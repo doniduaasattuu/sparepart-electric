@@ -17,6 +17,17 @@ use function Laravel\Prompts\select;
 
 class PartController extends Controller
 {
+    // ========================================
+    // ============ RETURN IMAGE ==============
+    // ========================================
+    public function idCheck(Request $request, string $id)
+    {
+        $id = Part::query()->find($id);
+
+        if (!is_null($id)) {
+            return "Material Number is already registered!";
+        }
+    }
     // // ========================================
     // // ============ RETURN IMAGE ==============
     // // ========================================
@@ -80,7 +91,7 @@ class PartController extends Controller
     // ========================================
     // ============= UPDATE PART ==============
     // ========================================
-    public function updatePart(Request $request)
+    public function upsertPart(Request $request)
     {
         $data = $request->except(['_token', 'image']);
         $id = $data['id'];
@@ -110,9 +121,46 @@ class PartController extends Controller
             }
 
             if ($result) {
-                return redirect()->action([PartController::class, 'partDetail'], ['id' => $id])->with('message', 'Successfuly Updated');
+                return redirect()->action([PartController::class, 'partDetail'], ['id' => $id])->with('message', 'Successfully Updated');
             } else {
                 return redirect()->action([PartController::class, 'partDetail'], ['id' => $id])->with('message', 'Error Occured!');
+            }
+        } else if (is_null($part)) {
+
+            if (
+                !empty($data['id']) && !is_null($data['id']) &&
+                !empty($data['material_description']) && !is_null($data['material_description']) &&
+                !empty($data['material_type']) && !is_null($data['material_type']) &&
+                !is_null($data['qty'])
+            ) {
+
+                try {
+
+                    $new_part = new Part();
+                    $new_part->id = $data['id'];
+                    $new_part->material_description = $data['material_description'];
+                    $new_part->material_type = $data['material_type'];
+                    $new_part->qty = $data['qty'];
+                    $new_part->location = $data['location'];
+
+                    $result = $new_part->save();
+
+                    if ($result) {
+                        return redirect()->back()->with('message', 'Material ' . '"' . $data['id'] . '"' . ' successfully saved!');
+                    } else {
+                        return redirect()->back()->with('message', 'Material ' . $data['id'] . ' cannot be saved!');
+                    }
+                } catch (QueryException $error) {
+                    return redirect()->back()->with('message', $error->getMessage());
+                }
+
+                // if ($result) {
+                //     return redirect()->action([PartController::class, 'partDetail'], ['id' => $id])->with('message', 'Successfully Saved');
+                // } else {
+                //     return redirect()->action([PartController::class, 'partDetail'], ['id' => $id])->with('message', 'Error Occured!');
+                // }
+            } else {
+                return redirect()->back()->with('message', 'Fields marked with * are mandatory!');
             }
         } else {
             return redirect()->action([PartController::class, 'partDetail'], ['id' => $id])->with('message', 'Material not found!');

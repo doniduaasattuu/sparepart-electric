@@ -12,4 +12,9 @@ use Tests\TestCase;
 
 class PartTest extends TestCase
 {
+    public function testNullPart()
+    {
+        $part = Part::query()->find("10003223");
+        self::assertNull($part);
+    }
 }
