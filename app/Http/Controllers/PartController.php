@@ -121,7 +121,7 @@ class PartController extends Controller
             }
 
             if ($result) {
-                return redirect()->action([PartController::class, 'partDetail'], ['id' => $id])->with('message', 'Successfully Updated');
+                return redirect()->action([PartController::class, 'partDetail'], ['id' => $id])->with('message', 'Successfully updated!');
             } else {
                 return redirect()->action([PartController::class, 'partDetail'], ['id' => $id])->with('message', 'Error Occured!');
             }
@@ -288,12 +288,12 @@ class PartController extends Controller
             }
 
             if ($result) {
-                return redirect()->back()->with('message', '"' . $part->material_description . '"' . ' Successfully Deleted');
+                return redirect()->back()->with('message', '"' . $part->material_description . '"' . ' successfully deleted!');
             } else {
                 return redirect()->back()->with('message', 'Error Occured!');
             }
         } else {
-            return redirect()->back()->with('message', 'Product ' . $id . ' Not Found!');
+            return redirect()->back()->with('message', 'Material ' . $id . ' not found!');
         }
     }
 
@@ -309,7 +309,7 @@ class PartController extends Controller
         if (!is_null($part)) {
             return redirect()->action([PartController::class, 'partDetail'], ['id' => $id]);
         } else {
-            return redirect()->route('home')->with('message', 'Part ' . '"' . $id . '"' . ' not found!');
+            return redirect()->route('home')->with('message', 'Material ' . '"' . $id . '"' . ' not found!');
         }
     }
 }
