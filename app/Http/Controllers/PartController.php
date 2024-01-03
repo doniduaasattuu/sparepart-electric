@@ -128,7 +128,7 @@ class PartController extends Controller
         } else if (is_null($part)) {
 
             if (
-                !empty($data['id']) && !is_null($data['id']) &&
+                !empty($data['id']) && !is_null($data['id']) && (strlen($data['id']) == 8) &&
                 !empty($data['material_description']) && !is_null($data['material_description']) &&
                 !empty($data['material_type']) && !is_null($data['material_type']) &&
                 !is_null($data['qty'])
@@ -275,10 +275,8 @@ class PartController extends Controller
     // ========================================
     // =========== DELETE PART =============
     // ========================================
-    public function deletePart(Request $request)
+    public function deletePart(Request $request, string $id)
     {
-        $id = $request->input('id');
-
         $part = Part::query()->find($id);
 
         if (!is_null($part)) {

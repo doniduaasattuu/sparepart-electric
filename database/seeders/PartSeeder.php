@@ -140,6 +140,13 @@ class PartSeeder extends Seeder
                 'material_type' => 'ND',
                 'qty' => '1',
                 'location' => 'LEMARI 1 SLOT 5',
+            ],
+            [
+                'id' => '10000037',
+                'material_description' => 'FAN,6",220V',
+                'material_type' => 'ND',
+                'qty' => '16',
+                'location' => 'LEMARI 4 SLOT 1',
             ]
         ]);
     }
