@@ -47,9 +47,24 @@ class PartController extends Controller
     // ========================================
     // ========= RETURN ALL PRODUCT ===========
     // ========================================
+
+    public function createPartSeeder()
+    {
+    }
+
     public function showAllParts()
     {
         $parts = Part::get();
+
+        // foreach ($parts as $part) {
+        //     echo '</br>' . "[" . '</br>' .
+        //         "'id' => " . "'" . $part->id, "'," . '</br>' .
+        //         "'material_description' => " . "'" . $part->material_description, "'," . '</br>' .
+        //         "'material_type' => " . "'" . $part->material_type, "'," . '</br>' .
+        //         "'qty' => " . "'" .  $part->qty, "'," . '</br>' .
+        //         "'location' => " . "'" .  $part->location, "'," . '</br>' .
+        //         "],";
+        // }
 
         return response()->view('home', [
             'title' => 'Spareparts',

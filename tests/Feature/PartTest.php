@@ -24,20 +24,20 @@ class PartTest extends TestCase
         $this->seed(DatabaseSeeder::class);
 
         $this->get('/')
-            ->assertSeeText('FAN,6",220V')
-            ->assertSeeText('18');
+            ->assertSeeText('AMPERE METER,PZ72-AI,ACREL')
+            ->assertSeeText('272');
     }
 
     public function testPartDetail()
     {
         $this->seed(DatabaseSeeder::class);
 
-        $this->get('/part-detail/10000037')
-            ->assertSee('10000037')
-            ->assertSee('FAN,6",220V')
-            ->assertSee('ND - No planning')
-            ->assertSee('16')
-            ->assertSee('LEMARI 4 SLOT 1')
+        $this->get('/part-detail/10000163')
+            ->assertSee('10000163')
+            ->assertSee('AMPERE METER,PZ72-AI,ACREL')
+            ->assertSee('V1 - Manual reord.point w. ext.reqs')
+            ->assertSee('6')
+            ->assertSee('LEMARI 1 SLOT A')
             ->assertSeeText('The current image (if any) will be replaced.');
     }
 
@@ -83,7 +83,7 @@ class PartTest extends TestCase
             'material_type' => 'ND',
             'qty' => '16',
             'location' => 'LEMARI 4 SLOT 1',
-        ])->assertSessionHas('message', 'Successfully updated!');
+        ])->assertSessionHas('message', 'Material "10000037" successfully saved!');
     }
 
     public function testInsertEmpty()
@@ -104,33 +104,33 @@ class PartTest extends TestCase
 
     public function testUpdateSucces()
     {
-        $this->seed(DatabaseSeeder::class);
+        $this->testInsertSuccess();
 
         $this->get('/')
-            ->assertSeeText('FAN,6",220V');
+            ->assertSeeText('CABLE SCOON,RING SC,90-12MM');
 
         $this->post('/upsert-part', [
-            'id' => '10000037',
-            'material_description' => 'FAN,8",220V',
+            'id' => '10005890',
+            'material_description' => 'CABLE SCOON,RING SC,90-10MM',
             'material_type' => 'ND',
-            'qty' => '16',
-            'location' => 'LEMARI 4 SLOT 1',
+            'qty' => '100',
+            'location' => 'LEMARI 1 SLOT 4',
         ])->assertSessionHas('message', 'Successfully updated!');
 
         $this->get('/')
-            ->assertSeeText('FAN,8",220V')
-            ->assertDontSeeText('FAN,6",220V');
+            ->assertSeeText('CABLE SCOON,RING SC,90-10MM')
+            ->assertDontSeeText('CABLE SCOON,RING SC,90-12MM');
     }
 
     public function testDeleteMaterial()
     {
-        $this->seed(DatabaseSeeder::class);
+        $this->testInsertSuccess();
 
         $this->get('/')
-            ->assertSeeText('10000037');
+            ->assertSeeText('10005890');
 
-        $this->get('/delete-part/10000037')
-            ->assertSessionHas('message', '"FAN,6",220V" successfully deleted!');
+        $this->get('/delete-part/10005890')
+            ->assertSessionHas('message', '"CABLE SCOON,RING SC,90-12MM" successfully deleted!');
     }
 
     public function testDeleteMaterialFailed()
@@ -143,12 +143,12 @@ class PartTest extends TestCase
 
     public function testSearchMaterial()
     {
-        $this->seed(DatabaseSeeder::class);
+        $this->testInsertSuccess();
 
         $this->post('/search-part', [
-            'part' => '10000037'
+            'part' => '10005890'
         ])
-            ->assertRedirect('/part-detail/10000037');
+            ->assertRedirect('/part-detail/10005890');
     }
 
     public function testSearchMaterialNotFound()
@@ -156,8 +156,8 @@ class PartTest extends TestCase
         $this->seed(DatabaseSeeder::class);
 
         $this->post('/search-part', [
-            'part' => '10012345'
+            'part' => '10005890'
         ])
-            ->assertSessionHas('message', 'Material "10012345" not found!');
+            ->assertSessionHas('message', 'Material "10005890" not found!');
     }
 }

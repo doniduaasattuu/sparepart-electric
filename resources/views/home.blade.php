@@ -212,7 +212,7 @@
             }
         }
 
-        filter_parts.oninput = () => {
+        function doFilter() {
             filter_parts.value = filter_parts.value.toUpperCase();
 
             if (filter_parts.value.trim().length > 0) {
@@ -236,6 +236,14 @@
             } else {
                 resetFilter(part_names, table_rows);
             }
+        }
+
+        filter_parts.oninput = () => {
+            doFilter();
+        }
+
+        window.onload = () => {
+            doFilter();
         }
     </script>
 
