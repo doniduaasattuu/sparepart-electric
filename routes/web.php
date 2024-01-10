@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PartController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PartController::class, 'showAllParts'])->name('home');
+Route::get('/', [HomeController::class, 'showAllParts'])->name('home');
 
 // Route::get('/scanner', function () {
 //     return response()->view('utility.scanner', [
