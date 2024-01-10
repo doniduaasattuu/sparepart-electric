@@ -16,35 +16,8 @@ class PartServiceImpl implements PartService
         return $parts;
     }
 
-    public function returnColumnOfTable(string $tableName): array
+    public function deletePart(string $id): bool
     {
-        $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
-        return $columns;
-    }
-
-    public function returnMaterialTypes(): array
-    {
-        $types = [];
-
-        $material_types = MaterialType::query()->get();
-
-        foreach ($material_types as $material) {
-            array_push($types, $material->type);
-        }
-
-        return $types;
-    }
-
-    public function returnSelects(): array
-    {
-        $selects = [];
-
-        $material_types = MaterialType::query()->get();
-
-        foreach ($material_types as $material) {
-            array_push($selects, $material->type . ' - ' . $material->type_description);
-        }
-
-        return $selects;
+        return true;
     }
 }

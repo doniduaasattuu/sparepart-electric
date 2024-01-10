@@ -16,22 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'showAllParts'])->name('home');
-
-// Route::get('/scanner', function () {
-//     return response()->view('utility.scanner', [
-//         'title' => 'Scan Product',
-//     ]);
-// });
-
-Route::get('/part-detail/{id}', [PartController::class, 'partDetail']);
-
+Route::get('/part-detail/{id}', [HomeController::class, 'partDetail']);
 Route::post('/upsert-part', [PartController::class, 'upsertPart']);
-
-Route::get('/registry-part', [PartController::class, 'registryPart']);
-
-Route::get('/delete-part/{id}', [PartController::class, 'deletePart']);
-
+Route::get('/registry-part', [HomeController::class, 'registryPart']);
+Route::get('/delete-part/{id}', [HomeController::class, 'deletePart']);
 Route::post('/search-part', [PartController::class, 'searchPart']);
 Route::get('/id-check/{id}', [PartController::class, 'idCheck']);
-
-// Route::get('/images/{part_id}', [PartController::class, 'getImage']);

@@ -55,17 +55,17 @@
                         $count = 0
                         @endphp
 
-                        @foreach ($types as $type)
+                        @foreach ($materialTypes->types() as $type)
 
                         <!-- MATERIAL TYPE -->
                         @if(!empty($part))
                         @if ($type == $part[$column])
-                        <option selected value="{{ $type }}">{{ $selects[$count] }}</option>
+                        <option selected value="{{ $type }}">{{ $type . ' - ' . $materialTypes->$type }}</option>
                         @else
-                        <option value="{{ $type }}">{{ $selects[$count] }}</option>
+                        <option value="{{ $type }}">{{ $type . ' - ' . $materialTypes->$type }}</option>
                         @endif
                         @else
-                        <option value="{{ $type }}">{{ $selects[$count] }}</option>
+                        <option value="{{ $type }}">{{ $type . ' - ' . $materialTypes->$type }}</option>
                         @endif
 
                         @php

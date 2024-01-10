@@ -82,7 +82,9 @@
                         <td>{{ $number }}</td>
                         @foreach ($part as $key => $value )
 
-                        @if ($key == 'material_type' or $key == 'qty')
+                        @if ($key == 'material_type')
+                        <td data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip" data-bs-title="{{ $materialTypes->$value }}" class="text-break text-center">{{ $value }}</td>
+                        @elseif ($key == 'qty')
                         <td class="text-break text-center">{{ $value }}</td>
                         @else
                         <td class="text-break">{{ $value }}</td>
@@ -171,6 +173,12 @@
 
         </div>
     </div>
+
+
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
 
     <script type="text/javascript">
         let button_deletes = document.getElementsByClassName('button_delete');

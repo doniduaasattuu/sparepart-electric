@@ -8,9 +8,5 @@ interface PartService
 {
     public function returnAllParts(): Collection;
 
-    public function returnColumnOfTable(string $tableName): array;
-
-    public function returnMaterialTypes(): array;
-
-    public function returnSelects(): array;
+    public function deletePart(string $id): bool;
 }
